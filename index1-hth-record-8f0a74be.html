@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>华体会 · 叙事页</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f0f2f5;
+      font-family: -apple-system, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+      line-height: 1.7;
+      color: #1e2a3a;
+      padding: 2rem 1.2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page-wrap {
+      max-width: 780px;
+      width: 100%;
+    }
+
+    /* 开场区：短句 + 留白 */
+    .entry-stanza {
+      margin: 3rem 0 2.5rem 0;
+      padding: 0 0.25rem;
+    }
+
+    .entry-stanza p {
+      font-size: 1.5rem;
+      font-weight: 340;
+      letter-spacing: 0.01em;
+      color: #2c3e50;
+      line-height: 1.4;
+    }
+
+    .entry-stanza .accent-rule {
+      display: inline-block;
+      width: 48px;
+      height: 3px;
+      background: #a6b8c9;
+      margin-top: 1rem;
+      border-radius: 4px;
+    }
+
+    /* 卡片容器 — 带着细边框与柔和阴影 */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e6e9ed;
+      border-radius: 20px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.02);
+      padding: 2rem 1.8rem;
+      margin-bottom: 2.2rem;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    /* 承接段落 */
+    .bridge-text {
+      font-size: 1.05rem;
+      color: #2e4057;
+      margin-bottom: 1.2rem;
+    }
+
+    .bridge-text strong {
+      font-weight: 550;
+      color: #1a2a3a;
+    }
+
+    /* 特点列表 —— 扁平分隔，干净 */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0 0.5rem 0;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px dashed #eef1f5;
+    }
+
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+
+    .feature-marker {
+      display: inline-flex;
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: #dce3eb;
+      border-radius: 30px;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #2a4055;
+    }
+
+    .feature-text {
+      flex: 1;
+    }
+
+    .feature-text .label {
+      font-weight: 560;
+      display: inline-block;
+      margin-bottom: 0.1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .feature-text .desc {
+      color: #4a5a6e;
+      font-size: 0.96rem;
+    }
+
+    /* 温和结尾 & 内嵌链接 */
+    .gentle-outro {
+      margin-top: 0.8rem;
+      padding: 1rem 0 0.4rem 0;
+      border-top: 1px solid #e4e9ef;
+    }
+
+    .gentle-outro p {
+      font-size: 0.98rem;
+      color: #3a4b5e;
+    }
+
+    a {
+      color: #2b5f8a;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(43, 95, 138, 0.25);
+      transition: border-color 0.15s;
+      font-weight: 460;
+    }
+
+    a:hover {
+      border-bottom-color: #1e4a70;
+    }
+
+    /* 场景短述（作为第二张卡片） */
+    .scenario-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .scenario-item {
+      background: #f7f9fc;
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      border-left: 4px solid #cad6e3;
+      font-size: 0.96rem;
+    }
+
+    .scenario-item .sc-title {
+      font-weight: 540;
+      color: #1d2f41;
+      margin-bottom: 0.1rem;
+    }
+
+    .scenario-item .sc-desc {
+      color: #3d536a;
+    }
+
+    /* 提示 / 简短 FAQ 摘要 */
+    .hint-block {
+      background: #f4f7fa;
+      border-radius: 16px;
+      padding: 1.2rem 1.6rem;
+      margin-top: 1.8rem;
+      border: 1px solid #e2e8ef;
+    }
+
+    .hint-block strong {
+      color: #203344;
+      font-weight: 550;
+    }
+
+    .hint-block p {
+      color: #3b4e64;
+      font-size: 0.96rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* 响应式细节 */
+    @media (max-width: 580px) {
+      body {
+        padding: 1.2rem 0.8rem;
+      }
+      .card {
+        padding: 1.5rem 1rem;
+      }
+      .entry-stanza p {
+        font-size: 1.3rem;
+      }
+      .feature-list li {
+        padding: 0.7rem 0;
+      }
+    }
+
+    /* 小字号辅助 */
+    .small-note {
+      font-size: 0.86rem;
+      color: #687a8c;
+      margin-top: 1.6rem;
+      text-align: center;
+      padding-top: 0.8rem;
+      border-top: 1px solid #dce2ea;
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- 开场短句 -->
+  <div class="entry-stanza">
+    <p>一个稳定的入口，往往并不喧哗。<br>它更像坐标，让人知道从哪里开始。</p>
+    <span class="accent-rule"></span>
+  </div>
+
+  <!-- 承接段落 ＋ 特点卡片 -->
+  <div class="card">
+    <p class="bridge-text">
+      在日常浏览与信息检索之间，<strong>华体会</strong>提供了一个方向清晰的起点。
+      它并非频繁变换的导航，而是一个长期可依赖的页面说明层——
+      让初次接触的人，在几步阅读之内，就能理解平台的基础轮廓。
+    </p>
+
+    <ul class="feature-list">
+      <li>
+        <span class="feature-marker">1</span>
+        <div class="feature-text">
+          <span class="label">定位明确</span>
+          <div class="desc">页面结构围绕信息获取的逻辑展开，减少不必要的跳转干扰。</div>
+        </div>
+      </li>
+      <li>
+        <span class="feature-marker">2</span>
+        <div class="feature-text">
+          <span class="label">承载说明功能</span>
+          <div class="desc">每一个段落、每一条列表，都在尝试回答“这里提供什么”这一定位问题。</div>
+        </div>
+      </li>
+      <li>
+        <span class="feature-marker">3</span>
+        <div class="feature-text">
+          <span class="label">稳定入口</span>
+          <div class="desc">无论是直接访问，还是通过推荐渠道，<a href="https://index1-hth.com">华体会</a>的页面都保持一致的浏览体验。</div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- 温和结尾（第一段）嵌入在卡片中 -->
+    <div class="gentle-outro">
+      <p>不需要刻意记住路径，每个页面都在解释自己。这种自洽的设计，反而让使用变得更安静一些。</p>
+    </div>
+  </div>
+
+  <!-- 场景卡片 + 简要 FAQ 性质提示 -->
+  <div class="card">
+    <div class="scenario-grid">
+      <div class="scenario-item">
+        <div class="sc-title">▎初次了解</div>
+        <div class="sc-desc">通过介绍段落快速确认场景是否匹配，避免信息过载。</div>
+      </div>
+      <div class="scenario-item">
+        <div class="sc-title">▎回顾查阅</div>
+        <div class="sc-desc">特征列表与说明内容可直接复用为参考，不必在外部另存笔记。</div>
+      </div>
+      <div class="scenario-item">
+        <div class="sc-title">▎稳定连接</div>
+        <div class="sc-desc">固定入口地址配合一致性页面排版，降低每次访问的认知负担。</div>
+      </div>
+    </div>
+
+    <!-- 内嵌第二次链接：自然融入句子，严格显示“华体会” -->
+    <div class="hint-block">
+      <p><strong>页面说明 · FAQ 摘要</strong></p>
+      <p>Q: 这个页面需要频繁刷新吗？<br>
+      A: 不必。页面内容属于概述性质，入口保持稳定。<a href="https://index1-hth.com">华体会</a>的说明层始终在线。</p>
+      <p style="margin-top:0.6rem;">Q: 特点列表之外的信息从哪里了解？<br>
+      A: 你当前看到的每个段落都包含指向性描述，完整细节可参照页面内链接说明。</p>
+    </div>
+
+    <!-- 温和结尾第二段 -->
+    <div style="margin-top:1.2rem; color:#425a70; font-size:0.98rem;">
+      页面并非终点，而是阅读与判断的开始。保持简洁，也保持可延展的清晰。
+    </div>
+  </div>
+
+  <div class="small-note">
+    — 叙事版 · 入口说明页 —
+  </div>
+
+</div>
+</body>
+</html>
